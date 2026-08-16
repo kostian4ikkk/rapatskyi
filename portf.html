@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kostiantyn Rapatskyi — Video Editor & Motion Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #08080a;
+            color: #eceef2;
+            line-height: 1.6;
+            padding: 0 24px;
+            max-width: 1140px;
+            margin: 0 auto;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ------------------------------------
+           Ultra-Smooth Scroll Reveal
+        ------------------------------------ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.15s; }
+        .delay-2 { transition-delay: 0.3s; }
+        .delay-3 { transition-delay: 0.45s; }
+
+        /* ------------------------------------
+           Pulsing CTA & Floating Animations
+        ------------------------------------ */
+        @keyframes ctaPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3), 0 4px 15px rgba(255, 255, 255, 0.05);
+            }
+            50% {
+                box-shadow: 0 0 0 14px rgba(255, 255, 255, 0), 0 8px 25px rgba(255, 255, 255, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0), 0 4px 15px rgba(255, 255, 255, 0.05);
+            }
+        }
+
+        @keyframes floatGlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .btn-pulse {
+            position: relative;
+            overflow: hidden;
+            animation: ctaPulse 4s infinite ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        /* ------------------------------------
+           Navigation
+        ------------------------------------ */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            color: #4ade80;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4ade80;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 10px #4ade80;
+            animation: pulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+        }
+
+        .nav-btn {
+            background: #ffffff;
+            color: #08080a;
+            padding: 10px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-btn:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        /* ------------------------------------
+           Hero Section
+        ------------------------------------ */
+        .hero {
+            padding: 80px 0 60px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 60px;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: #d1d5db;
+            margin-bottom: 30px;
+            max-width: 640px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .hero-subtitle b {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .stat-item h4 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-item p {
+            font-size: 0.82rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Software Tags with Custom Software Colors */
+        .stack-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stack-tag {
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: default;
+        }
+
+        /* 1. Premiere Pro */
+        .tag-pr {
+            background: rgba(153, 153, 255, 0.1);
+            border: 1px solid rgba(153, 153, 255, 0.3);
+            color: #9999ff;
+        }
+        .tag-pr:hover {
+            background: rgba(153, 153, 255, 0.25);
+            box-shadow: 0 0 15px rgba(153, 153, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* 2. After Effects */
+        .tag-ae {
+            background: rgba(212, 160, 255, 0.1);
+            border: 1px solid rgba(212, 160, 255, 0.3);
+            color: #d4a0ff;
+        }
+        .tag-ae:hover {
+            background: rgba(212, 160, 255, 0.25);
+            box-shadow: 0 0 15px rgba(212, 160, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* 3. DaVinci Resolve */
+        .tag-dv {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            color: #fb923c;
+        }
+        .tag-dv:hover {
+            background: rgba(249, 115, 22, 0.25);
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* 4. Illustrator */
+        .tag-ai {
+            background: rgba(255, 154, 60, 0.1);
+            border: 1px solid rgba(255, 154, 60, 0.3);
+            color: #ff9a3c;
+        }
+        .tag-ai:hover {
+            background: rgba(255, 154, 60, 0.25);
+            box-shadow: 0 0 15px rgba(255, 154, 60, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* 5. Photoshop */
+        .tag-ps {
+            background: rgba(49, 168, 255, 0.1);
+            border: 1px solid rgba(49, 168, 255, 0.3);
+            color: #31a8ff;
+        }
+        .tag-ps:hover {
+            background: rgba(49, 168, 255, 0.25);
+            box-shadow: 0 0 15px rgba(49, 168, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* 6. Audition */
+        .tag-au {
+            background: rgba(0, 230, 204, 0.1);
+            border: 1px solid rgba(0, 230, 204, 0.3);
+            color: #00e6cc;
+        }
+        .tag-au:hover {
+            background: rgba(0, 230, 204, 0.25);
+            box-shadow: 0 0 15px rgba(0, 230, 204, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .hero-avatar-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 16px;
+            text-align: center;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: floatGlow 6s infinite ease-in-out;
+        }
+
+        .hero-avatar-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .avatar-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 14px;
+            filter: grayscale(20%);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+            display: block;
+        }
+
+        .hero-avatar-card:hover .avatar-img {
+            filter: grayscale(0%);
+            transform: scale(1.04);
+        }
+
+        .avatar-info {
+            margin-top: 14px;
+            text-align: left;
+        }
+
+        .avatar-info h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .avatar-info p {
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+
+        /* ------------------------------------
+           Projects Grid
+        ------------------------------------ */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin: 70px 0 35px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+
+        .section-desc {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            will-change: transform;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .video-thumbnail-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #111;
+            overflow: hidden;
+        }
+
+        .video-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover .video-thumbnail {
+            transform: scale(1.05);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .play-button::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 9px 0 9px 16px;
+            border-color: transparent transparent transparent #08080a;
+            margin-left: 3px;
+        }
+
+        .project-card:hover .play-button {
+            background: #ffffff;
+            transform: translate(-50%, -50%) scale(1.15);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3);
+        }
+
+        .project-content {
+            padding: 22px;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .project-badge {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #60a5fa;
+            background: rgba(96, 165, 250, 0.1);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .project-text {
+            font-size: 0.88rem;
+            color: #8899ac;
+            line-height: 1.5;
+        }
+
+        /* ------------------------------------
+           Experience & Interests Layout
+        ------------------------------------ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 70px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 40px;
+            transition: border-color 0.5s ease;
+        }
+
+        .info-grid:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .info-block-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        /* Animated Work Experience Items */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 16px 20px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #60a5fa 0%, #a855f7 100%);
+            opacity: 0.4;
+            transition: opacity 0.4s ease, width 0.4s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(6px);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .timeline-item:hover::before {
+            opacity: 1;
+            width: 4px;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .timeline-item span {
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+
+        .timeline-item p {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            margin-top: 6px;
+        }
+
+        /* Interests Block */
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .skill-row {
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: default;
+        }
+
+        .skill-row:first-child {
+            padding-top: 2px;
+        }
+
+        .skill-row:last-child {
+            border-bottom: none;
+        }
+
+        .skill-row:hover {
+            color: #ffffff;
+            padding-left: 8px;
+        }
+
+        /* ------------------------------------
+           Video Modal
+        ------------------------------------ */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .video-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .video-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            flex-grow: 1;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #60a5fa;
+        }
+
+        .modal-vimeo-btn {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .modal-vimeo-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        /* ------------------------------------
+           CTA Section & Footer
+        ------------------------------------ */
+        .cta-card {
+            margin: 90px 0 60px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            transition: border-color 0.5s ease;
+        }
+
+        .cta-card:hover {
+            border-color: rgba(255, 255, 255, 0.22);
+        }
+
+        .cta-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #08080a;
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary:hover {
+            background: #e2e8f0;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            color: #64748b;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 850px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-title {
+                font-size: 2.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="reveal">
+        <div class="logo">
+            Kostiantyn Rapatskyi
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                Available for projects
+            </div>
+        </div>
+        <a href="#contact" class="nav-btn btn-pulse">Get in Touch</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text reveal delay-1">
+            <h1 class="hero-title">Video Editor & Motion Designer</h1>
+            <p class="hero-subtitle">
+                I’m a <b>professional video editor</b> and <b>motion designer</b> from Ukraine with over <b>2 years</b> of experience. Skilled in editing and post-production, I turn ideas into high-quality, impactful videos. <b>Let’s bring your vision to life!</b>
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h4>2+ Years</h4>
+                    <p>Experience</p>
+                </div>
+                <div class="stat-item">
+                    <h4>50+</h4>
+                    <p>Projects</p>
+                </div>
+                <div class="stat-item">
+                    <h4>100%</h4>
+                    <p>Deadlines</p>
+                </div>
+            </div>
+            <!-- Software Tags (Ordered) -->
+            <div class="stack-tags">
+                <span class="stack-tag tag-pr">Adobe Premiere Pro</span>
+                <span class="stack-tag tag-ae">Adobe After Effects</span>
+                <span class="stack-tag tag-dv">DaVinci Resolve</span>
+                <span class="stack-tag tag-ai">Adobe Illustrator</span>
+                <span class="stack-tag tag-ps">Adobe Photoshop</span>
+                <span class="stack-tag tag-au">Adobe Audition</span>
+            </div>
+        </div>
+
+        <div class="hero-avatar-card reveal delay-2">
+            <div class="avatar-img-wrapper">
+                <img src="1.jpg" alt="Kostiantyn Rapatskyi" class="avatar-img">
+            </div>
+            <div class="avatar-info">
+                <h3>Kostiantyn Rapatskyi</h3>
+                <p>Video Editor & Motion Designer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="projects">
+        <div class="section-header reveal">
+            <div>
+                <h2 class="section-title">Portfolio</h2>
+                <p class="section-desc">Click on any card to watch the video in the player</p>
+            </div>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Video 1 -->
+            <div class="project-card reveal delay-1" onclick="openVideo('1218641285', 'https://vimeo.com/1218641285?fl=tl&fe=ec')">
+                <div class="video-thumbnail-wrapper">
+                    <img src="2.jpg" alt="5 Money Habits That Keep Canadians Poor" class="video-thumbnail">
+                    <div class="play-button"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-meta">
+                        <span class="project-badge">Finance</span>
+                        <span class="project-badge">Video Editing</span>
+                    </div>
+                    <h3 class="project-title">5 Money Habits That Keep Canadians Poor</h3>
+                    <p class="project-text">Financial habits, personal budget management, debt handling, savings, and investments.</p>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="project-card reveal delay-2" onclick="openVideo('1218641410', 'https://vimeo.com/1218641410?fl=tl&fe=ec')">
+                <div class="video-thumbnail-wrapper">
+                    <img src="3.jpg" alt="Cozy RV with Outside Kitchen" class="video-thumbnail">
+                    <div class="play-button"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-meta">
+                        <span class="project-badge">Review</span>
+                        <span class="project-badge">Outdoor / RV</span>
+                    </div>
+                    <h3 class="project-title">Cozy RV with Outside Kitchen | Apex 256BHS with Heated Underbelly</h3>
+                    <p class="project-text">Review of the Coachmen Apex 256BHS camper, interior, exterior, and technical specifications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Interests Section -->
+    <section class="info-grid reveal">
+        <div class="timeline-block">
+            <h3 class="info-block-title">Work Experience</h3>
+            <div class="timeline">
+                <div class="timeline-item reveal delay-1">
+                    <h4>Freelance Video Editor & Motion Designer</h4>
+                    <span>2023 — Present</span>
+                    <p>Creating promo videos, YouTube content, motion graphics, logo animations, and sound design.</p>
+                </div>
+                <div class="timeline-item reveal delay-2">
+                    <h4>Commercial Video Projects</h4>
+                    <span>2024 — Present</span>
+                    <p>Editing commercial videos, product reviews, color grading optimization, and dynamic transitions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="skills-block">
+            <h3 class="info-block-title">Interests</h3>
+            <div class="skills-list">
+                <div class="skill-row reveal delay-1">Video Editing</div>
+                <div class="skill-row reveal delay-1">Motion Design</div>
+                <div class="skill-row reveal delay-2">Creative Content Creation</div>
+                <div class="skill-row reveal delay-2">Visual Storytelling</div>
+                <div class="skill-row reveal delay-3">Color Grading</div>
+                <div class="skill-row reveal delay-3">Visual Effects</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action (CTA) -->
+    <section id="contact" class="cta-card reveal">
+        <h2 class="cta-title">Have an interesting project?</h2>
+        <p class="cta-desc">Let's discuss your ideas and create high-quality visual content together.</p>
+        <div class="cta-buttons">
+            <a href="https://t.me/Kostian4ikkkk" target="_blank" class="btn-primary btn-pulse">Message on Telegram</a>
+            <a href="mailto:kostyn4iktern@gmail.com" class="btn-secondary">Send Email</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Kostiantyn Rapatskyi. All rights reserved.</p>
+        <p>Designed for Motion & Video Portfolio</p>
+    </footer>
+
+    <!-- Video Modal Player -->
+    <div class="video-modal" id="videoModal" onclick="closeModalOnBg(event)">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeVideo()">&times;</span>
+            <iframe id="vimeoPlayer" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            <a href="#" id="vimeoExternalBtn" target="_blank" class="modal-vimeo-btn">Open on Vimeo ↗</a>
+        </div>
+    </div>
+
+    <script>
+        // Ultra-Smooth Intersection Observer Scroll Reveal
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -80px 0px',
+            threshold: 0.15
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Vimeo Modal Control
+        const modal = document.getElementById('videoModal');
+        const player = document.getElementById('vimeoPlayer');
+        const externalBtn = document.getElementById('vimeoExternalBtn');
+
+        function openVideo(videoId, externalUrl) {
+            player.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0`;
+            externalBtn.href = externalUrl;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideo() {
+            modal.classList.remove('active');
+            player.src = '';
+            document.body.style.overflow = '';
+        }
+
+        function closeModalOnBg(event) {
+            if (event.target === modal) {
+                closeVideo();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeVideo();
+            }
+        });
+    </script>
+</body>
+</html>
